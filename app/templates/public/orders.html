@@ -1,0 +1,80 @@
+{% extends "public/templates/indexbase.html" %} {% block title%} My Orders {% endblock title%} {% block head %} {% set checkEmptyCart = flase %}
+<link href="/static/public/cart/css/style.css" rel="stylesheet" /> {% endblock head%}{% block body %}
+<div class="wrap d-md-flex" style="user-select: auto;">
+    <div class="card min-height">
+        <div class="row">
+            <div class="col-md-12 cart">
+                <div class="title">
+                    <div class="row">
+                        <div class="col">
+                            <h4><b>My Orders</b></h4>
+                        </div>
+                    </div>
+                </div>
+                {% if products|length == 0 %}
+                <h1>No Orders</h1>
+                {% endif %}
+                <div class="row border-top">
+                    <div class="row main align-items-center">
+                        <div class="col-2">Image</div>
+                        <div class="col">
+                            <div class="row text-muted" class="hide">Details</div>
+                        </div>
+                        <div class="col">Quantity</div>
+                        <div class="col">Price of item </div>
+                        <div class="col">Total Price </div>
+                        <div class="col"> Status</div>
+                        <div class="col"> </div>
+                    </div>
+                </div>
+                {% for product in products %}
+                <div class="row border-top border-bottom">
+                    <div class="row main align-items-center">
+                        <div class="col-2"><img class="img-fluid" src="/static/public/img/{{product['pid']}}_s.jpg"></div>
+                        <div class="col">
+                            <div class="row text-muted" class="hide">Order ID: {{product['bid']}}</div>
+                            <div class="row">{{product['pname']}}</div>
+                        </div>
+                        <div class="col">
+                            <input type="hidden" class="" name="product_id" value={{product[ 'pid']}}>{{product['quantity']}}</input>
+                        </div>
+                        <div class="col">&#8377 {{product['price']}} </div>
+                        <div class="col">&#8377 {{product['price'] * product['quantity']}} </div>
+                        <div class="col">
+                            <form id='quantity' action="#" method="post">
+                                {% if product['bstatus'] == 'PD' %} Pending Delivery {% elif product['bstatus'] == 'RR' %} Returned {% elif product['bstatus'] == 'CS' %} Cancelled {% else %} Delivered {% endif %}
+                            </form>
+                        </div>
+                        <div class="col">
+                            <form id='quantity' action="/orders" method="post">
+                                <input type="hidden" name="pid" value={{product[ 'pid']}}>
+                                <input type="hidden" name="bid" value={{product[ 'bid']}}>
+                                <!--  -->
+                                {% if product['bstatus'] == 'PD' %}
+                                <button type="submit" class="close btn btn-danger" name='btn' value='cancel'>Cancel </button>
+                                <!--  -->
+                                {% elif product['bstatus'] == 'RR' %}
+                                <button type="submit" disabled class="close btn btn-info" name='btn' value='return'>Returned </button>
+                                <!--  -->
+                                {% elif product['bstatus'] == 'CS' %}
+                                <button type="submit" disabled class="close btn btn-info" name='btn' value='return'>Cancelled </button>
+                                <!--  -->
+                                {% else %}
+                                <button type="submit" class="close btn btn-danger" name='btn' value='return'>Return </button>
+                                <!--  -->
+                                {% endif %}
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+
+                <div class="back-to-shop"><a href="/">&leftarrow;<span class="text-muted aa">Back to shop</span></a></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="/app/static/public/cart/js/index.js"></script>
+{% endblock body %}

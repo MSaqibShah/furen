@@ -1,0 +1,55 @@
+{% extends "public/templates/indexbase.html" %} {% block title%} My Orders {% endblock title%} {% block head %} {% set checkEmptyCart = flase %}
+<link href="/static/public/cart/css/style.css" rel="stylesheet" /> {% endblock head%}{% block body %}
+<div class="wrap d-md-flex" style="user-select: auto;">
+    <div class="card min-height">
+        <div class="row">
+            <div class="col-md-12 cart">
+                <div class="title">
+                    <div class="row">
+                        <div class="col">
+                            <h4><b>My Payments</b></h4>
+                        </div>
+                    </div>
+                </div>
+                {% if data|length == 0 %}
+                <h1>No Payments</h1>
+                {% endif %}
+                <div class="row border-top">
+                    <div class="row main align-items-center">
+                        <!-- <div class="col-2">Image</div> -->
+                        <div class="col">Details</div>
+                        <!-- <div class="col">
+                            <div class="row text-muted" class="hide">Details</div>
+                        </div> -->
+                        <div class="col-2">Amount </div>
+                        <div class="col-2"> Date</div>
+                    </div>
+                </div>
+                {% for d in data %}
+
+                <div class="row border-top border-bottom">
+                    <div class="row main align-items-center">
+                        <!-- <div class="col-2"><img class="img-fluid" src=""></div> -->
+                        <div class="col">
+                            <div class="row text-muted" class="hide">Payment ID: {{d['paymentid']}}</div>
+                            <div class="row">{{d['pname']}}</div>
+                        </div>
+                        <div class="col">
+                            <input type="hidden" class="" name="product_id" value={{d[ 'pid']}}>{{d['quantity']}}</input>
+                        </div>
+                        <div class="col-2">&#8377 {{d['paymentAmount']}} </div>
+                        <div class="col-2">{{d['paymentDate']}} </div>
+
+                    </div>
+                </div>
+                {% endfor %}
+
+
+                <div class="back-to-shop"><a href="/">&leftarrow;<span class="text-muted aa">Back to shop</span></a></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="/app/static/public/cart/js/index.js"></script>
+{% endblock body %}

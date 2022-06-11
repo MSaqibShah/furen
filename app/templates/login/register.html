@@ -1,0 +1,49 @@
+{% extends "login/templates/loginbase.html" %} {% block title%} Admin {% endblock title%} {% block body %}
+<!-- Navigation-->
+{% include 'public/templates/nav.html' %}
+<h1>Register Panel</h1>
+<div class="wrap d-md-flex" style="user-select: auto;">
+    <div class="img" style="background-image: url(&quot;images/xbg-1.jpg.pagespeed.ic.3OAd9jZTMD.webp&quot;); user-select: auto;">
+    </div>
+    <div class="login-wrap p-4 p-md-5" style="user-select: auto;">
+        <div class="d-flex" style="user-select: auto;">
+            <div class="w-100" style="user-select: auto;">
+                <h3 class="mb-4" style="user-select: auto;">Sign Up</h3>
+            </div>
+        </div>
+        <form action="#" class="signin-form" style="user-select: auto;">
+            <div class="form-group mb-3" style="user-select: auto;">
+                <label class="label" for="name" style="user-select: auto;">Name</label>
+                <input type="text" class="form-control" placeholder="Full Name" required="" style="user-select: auto;">
+            </div>
+            <div class="form-group mb-3" style="user-select: auto;">
+                <label class="label" for="name" style="user-select: auto;">Email</label>
+                <input type="text" class="form-control" placeholder="Email" required="" style="user-select: auto;">
+            </div>
+            <div class="form-group mb-3" style="user-select: auto;">
+                <label class="label" for="name" style="user-select: auto;">Address</label>
+                <input type="text" class="form-control" placeholder="Address" required="" style="user-select: auto;">
+            </div>
+            <div class="form-group mb-3" style="user-select: auto;">
+                <label class="label" for="name" style="user-select: auto;">City</label>
+                <input type="text" class="form-control" placeholder="City" required="" style="user-select: auto;">
+            </div>
+            <div class="form-group mb-3" style="user-select: auto;">
+                <label class="label" for="name" style="user-select: auto;">Pin Code</label>
+                <input type="text" class="form-control" placeholder="Pin Code" required="" style="user-select: auto;">
+            </div>
+            <div class="form-group mb-3" style="user-select: auto;">
+                <label class="label" for="password" style="user-select: auto;">Password</label>
+                <input type="password" class="form-control" placeholder="Password" required="" style="user-select: auto;">
+            </div>
+            <div class="form-group" style="user-select: auto;">
+                <button type="submit" class="form-control btn btn-primary rounded submit px-3" style="user-select: auto;">REGISTER</button>
+            </div>
+
+        </form>
+        <p class="text-center" style="user-select: auto;">Already a member? <a data-toggle="tab" href="/login/" style="user-select: auto;">Login</a></p>
+    </div>
+</div>
+
+
+{% endblock body %}

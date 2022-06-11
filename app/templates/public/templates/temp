@@ -1,0 +1,28 @@
+<!-- 
+                <div class="row border-top border-bottom">
+                    <div class="row main align-items-center">
+                        <div class="col-2"><img class="img-fluid" src="https://i.imgur.com/1GrakTl.jpg"></div>
+                        <div class="col">
+                            <div class="row text-muted" class="hide">Order ID: {{d['bid']}}</div>
+                            <div class="row">{{d['pname']}}</div>
+                        </div>
+                        <div class="col">
+                            <input type="hidden" class="" name="product_id" value={{d[ 'pid']}}>{{d['quantity']}}</input>
+                        </div>
+                        <div class="col">&#8377 {{d['price']}} </div>
+                        <div class="col">&#8377 {{d['price'] * d['quantity']}} </div>
+                        <div class="col">
+                            <form id='quantity' action="#" method="post">
+                                {% if d['bstatus'] == 'PD' %} Pending Delivery {% else %} Delivered {% endif %}
+                            </form>
+                        </div>
+                        <div class="col">
+                            <form id='quantity' action="#" method="post">
+                                {% if d['bstatus'] == 'PD' %}
+                                <button type="submit" class="close btn btn-danger" name='name' value="rem">Cancel </button> {% else %}
+                                <button type="submit" class="close btn btn-danger" name='name' value="rem">Return </button> {% endif %}
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            -->

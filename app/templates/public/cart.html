@@ -1,0 +1,82 @@
+{% extends "public/templates/indexbase.html" %} {% block title%} CART {% endblock title%} {% block head %} {% set checkEmptyCart = flase %}
+<link href="/static/public/cart/css/style.css" rel="stylesheet" /> {% endblock head%}{% block body %}
+<div class="wrap d-md-flex" style="user-select: auto;">
+    <div class="card">
+        <div class="row">
+            <div class="col-md-8 cart">
+                <div class="title">
+                    <div class="row">
+                        <div class="col">
+                            <h4><b>Shopping Cart</b></h4>
+                        </div>
+                    </div>
+                </div>
+                {% if cart_products|length == 0 %}
+                <h1>Cart is empty</h1>
+                {% endif %} {% for product in cart_products %}
+                <div class="row border-top border-bottom">
+                    <div class="row main align-items-center">
+                        <div class="col-2"><img class="img-fluid" src="/static/public/img/{{ product['pid'] }}.jpg"></div>
+                        <div class="col">
+                            <div class="row text-muted" class="hide">Shirt</div>
+                            <div class="row">{{product['pname']}}</div>
+                        </div>
+                        <form id='quantity' action="/handlequantity" method="post">
+                            <div class="col">
+                                <button class="btn btn-info" type="submit" name="name" value="dec">-</button>
+                                <input type="hidden" class="" name="product_id" value={{product[ 'pid']}}>{{product['quantity']}}</input>
+                                <button class="btn btn-info" type="submit" name="name" value="inc">+</button> </div>
+                            <div class="col">&#8377 {{product['price']}} </div>
+                            <div class="col">
+                                <button type="submit" class="close btn btn-danger" name='name' value="rem">&#10005; </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+
+
+                <div class="back-to-shop"><a href="/">&leftarrow;<span class="text-muted aa">Back to shop</span></a></div>
+            </div>
+            <div class="col-md-4 summary">
+                <div>
+                    <h5><b>Summary</b></h5>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col" style="padding-left:0;">ITEMS {{ cart_products|length}}</div>
+                    {% set amount = [] %}
+                    <!--for loop starts-->
+                    {% for product in cart_products%}
+                    <!--  -->
+                    {% set p = product['price']| int %}
+                    <!--  -->
+                    {% set q = product['quantity']| int %}
+                    <!--  -->
+                    {% if amount.append((p * q)) %}{% endif %}
+                    <!--  -->
+                    {% endfor %}
+                    <!-- for loop ends -->
+
+
+                    <div class="col text-right">&#8377 {{amount|sum}}</div>
+                </div>
+                <form>
+                    <p class="hide">SHIPPING</p> <select class="hide">
+                    <option class="text-muted">Standard-Delivery- &euro;5.00</option>
+                </select>
+                    <p class="hide">GIVE CODE</p> <input id="code" class="hide" placeholder="Enter your code">
+                </form>
+                <form action="/checkout" method="post">
+                    <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
+                        <div class="col">TOTAL PRICE</div>
+                        <div class="col text-right">&#8377 {{amount|sum}}</div>
+                        {% if cart_products|length == 0 %} {% set checkEmptyCart = True %} {% endif %}
+                    </div> <button class="btn1" {{checkEmptyCart and 'disabled' }} type="submit">CHECKOUT</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/app/static/public/cart/js/index.js"></script>
+{% endblock body %}

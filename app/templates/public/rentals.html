@@ -1,0 +1,65 @@
+{% extends "public/templates/indexbase.html" %} {% block title%} My Orders {% endblock title%} {% block head %} {% set checkEmptyCart = flase %}
+<link href="/static/public/cart/css/style.css" rel="stylesheet" /> {% endblock head%}{% block body %}
+<div class="wrap d-md-flex" style="user-select: auto;">
+    <div class="card min-height">
+        <div class="row">
+            <div class="col-md-12 cart">
+                <div class="title">
+                    <div class="row">
+                        <div class="col">
+                            <h4><b>My Active Rentals</b></h4>
+                        </div>
+                    </div>
+                </div>
+                {% if data|length == 0 %}
+                <h1>No Active Rentals</h1>
+                {% endif %}
+                <div class="row border-top">
+                    <div class="row main align-items-center">
+                        <div class="col-2">Image</div>
+                        <div class="col">
+                            <div class="row text-muted" class="hide">Details</div>
+                        </div>
+                        <div class="col">Rent Start Date</div>
+                        <div class="col">Rent End Date </div>
+                        <div class="col">Payment Status </div>
+                        <div class="col"> </div>
+                    </div>
+                </div>
+                {% for product in data %}
+                <div class="row border-top border-bottom">
+                    <div class="row main align-items-center">
+                        <div class="col-2"><img class="img-fluid" src="/static/public/img/{{product['pid']}}_s.jpg"></div>
+                        <div class="col">
+                            <div class="row text-muted" class="hide">Rental ID: {{product['rid']}}</div>
+                            <div class="row text-muted" class="hide">Product ID: {{product['pid']}}</div>
+                            <div class="row">{{product['pname']}}</div>
+                        </div>
+
+                        <div class="col"> {{product['rstart']}} </div>
+                        <div class="col"> {{product['rend']}} </div>
+                        <div class="col">
+                            <form id='quantity' action="#" method="post">
+                                {% if product['rstatus'] == 'PP' %} Payment Pending {% else %} Payment Done {% endif %}
+                            </form>
+                        </div>
+                        <div class="col">
+                            <form id='quantity' action="/orders" method="post">
+                                <input type="hidden" name="pid" value={{product[ 'pid']}}>
+                                <input type="hidden" name="bid" value={{product[ 'bid']}}>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+
+                <div class="back-to-shop"><a href="/">&leftarrow;<span class="text-muted aa">Back to shop</span></a></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="/app/static/public/cart/js/index.js"></script>
+{% endblock body %}

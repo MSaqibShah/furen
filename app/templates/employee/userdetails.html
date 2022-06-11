@@ -1,0 +1,231 @@
+{% extends "employee/templates/base.html" %} {% block title%} FUREN {% endblock title%} {% block head %} {% set checkEmptyCart = flase %}
+<link href="/static/public/cart/css/style.css" rel="stylesheet" /> {% endblock head%}{% block body %}
+
+
+<!-- Header-->
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">WELCOME SAQIB</h1>
+            <p class="lead fw-normal text-white-50 mb-0">Let's get to work ;)</p>
+        </div>
+    </div>
+</header>
+{% set user = data[0] %} {% set products = data[1] %} {% set payments = data[2] %}
+
+<!-- Section User Details -->
+<div class="wrap d-md-flex" style="user-select: auto;">
+    <div class="card min-height">
+        <div class="row">
+            <div class="col-md-12 cart">
+                <div class="title">
+                    <div class="row">
+                        <div class="col">
+                            <h4><b>Here are the details</b></h4>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="row border-top">
+                    <div class="row main align-items-center border-bottom">
+                        <div class="col-3">
+                            <h1>Name</h1>
+                        </div>
+                        <div class="col-9">
+                            <h1>{{user['uname']}}</h1>
+                        </div>
+                    </div>
+                    <div class="row main align-items-center border-bottom">
+                        <div class="col-3">
+                            <h2>Uid</h2>
+                        </div>
+                        <div class="col-9">
+                            <h2>{{user['uid']}}</h2>
+                        </div>
+                    </div>
+                    <div class="row main align-items-center border-bottom">
+                        <div class="col-3">
+                            <h2>Email</h2>
+                        </div>
+                        <div class="col-9">
+                            <h2>{{user['uemail']}}</h2>
+                        </div>
+                    </div>
+                    <div class="row main align-items-center border-bottom">
+                        <div class="col-3">
+                            <h2>Phone</h2>
+                        </div>
+                        <div class="col-9">
+                            <h2>{{user['uphone']}}</h2>
+                        </div>
+                    </div>
+                    <div class="row main align-items-center border-bottom">
+                        <div class="col-3">
+                            <h2>Address</h2>
+                        </div>
+                        <div class="col-9">
+                            <h2>{{user['uaddress']}}</h2>
+                        </div>
+                    </div>
+                    <div class="row main align-items-center border-bottom">
+                        <div class="col-3">
+                            <h2>City</h2>
+                        </div>
+                        <div class="col-9">
+                            <h2>{{user['ucity']}}</h2>
+                        </div>
+                    </div>
+                    <div class="row main align-items-center border-bottom">
+                        <div class="col-3">
+                            <h2>State</h2>
+                        </div>
+                        <div class="col-9">
+                            <h2>{{user['ustate']}}</h2>
+                        </div>
+                    </div>
+                    <div class="row main align-items-center border-bottom">
+                        <div class="col-3">
+                            <h2>Pin</h2>
+                        </div>
+                        <div class="col-9">
+                            <h2>{{user['upin']}}</h2>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Section User Bookings -->
+<div class="wrap d-md-flex" style="user-select: auto;">
+    <div class="card min-height">
+        <div class="row">
+            <div class="col-md-12 cart">
+                <div class="title">
+                    <div class="row">
+                        <div class="col">
+                            <h4><b>My Orders</b></h4>
+                        </div>
+                    </div>
+                </div>
+                {% if products|length == 0 %}
+                <h1>No Orders</h1>
+                {% endif %}
+                <div class="row border-top">
+                    <div class="row main align-items-center">
+                        <div class="col-2">Image</div>
+                        <div class="col">
+                            <div class="row text-muted" class="hide">Details</div>
+                        </div>
+                        <div class="col">Quantity</div>
+                        <div class="col">Price of item </div>
+                        <div class="col">Total Price </div>
+                        <div class="col"> </div>
+                    </div>
+                </div>
+                {% for product in products %}
+                <div class="row border-top border-bottom">
+                    <div class="row main align-items-center">
+                        <div class="col-2"><img class="img-fluid" src="https://i.imgur.com/1GrakTl.jpg"></div>
+                        <div class="col">
+                            <div class="row text-muted" class="hide">Order ID: {{product['bid']}}</div>
+                            <div class="row">{{product['pname']}}</div>
+                        </div>
+                        <div class="col">
+                            <input type="hidden" class="" name="product_id" value={{product[ 'pid']}}>{{product['quantity']}}</input>
+                        </div>
+                        <div class="col">&#8377 {{product['price']}} </div>
+                        <div class="col">&#8377 {{product['price'] * product['quantity']}} </div>
+                        <div class="col">
+                            <form id='quantity' action="/delivered" method="post">
+                                <input type="hidden" name="pid" value={{product[ 'pid']}}>
+                                <input type="hidden" name="bid" value={{product[ 'bid']}}>
+                                <!--  -->
+                                {% if product['pstatus'] == 'PD' %}
+                                <button type="submit" class="close btn btn-info" name='uid' value={{user[ 'uid']}}>Delivery Complete </button>
+                                <!--  -->
+                                {% else %}
+                                <button type="submit" disabled class="close btn btn-info" name='btn' value='return'> Done </button>
+                                <!--  -->
+                                {% endif %}
+                                <input type="hidden" name="bid" value={{product[ 'bid']}}>
+                                <!--  -->
+                                {% if product['bstatus'] == 'PD' %}
+                                <button type="submit" class="close btn btn-info" name='uid' value={{user[ 'uid']}}>Delivery Complete </button>
+                                <!--  -->
+                                {% else %}
+                                <button type="submit" disabled class="close btn btn-info" name='btn' value='return'> Done </button>
+                                <!--  -->
+                                {% endif %}
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+
+                <div class="back-to-shop"><a href="/ehome">&leftarrow;<span class="text-muted aa">Back</span></a></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Section User Payments  -->
+<div class="wrap d-md-flex" style="user-select: auto;">
+    <div class="card min-height">
+        <div class="row">
+            <div class="col-md-12 cart">
+                <div class="title">
+                    <div class="row">
+                        <div class="col">
+                            <h4><b>My Payments</b></h4>
+                        </div>
+                    </div>
+                </div>
+                {% if payments|length == 0 %}
+                <h1>No Payments</h1>
+                {% endif %}
+                <div class="row border-top">
+                    <div class="row main align-items-center">
+                        <div class="col-2">Image</div>
+                        <div class="col">Details</div>
+                        <!-- <div class="col">
+                            <div class="row text-muted" class="hide">Details</div>
+                        </div> -->
+                        <div class="col-2">Amount </div>
+                        <div class="col-2"> Date</div>
+                    </div>
+                </div>
+                {% for d in payments %}
+
+                <div class="row border-top border-bottom">
+                    <div class="row main align-items-center">
+                        <div class="col-2"><img class="img-fluid" src="https://i.imgur.com/1GrakTl.jpg"></div>
+                        <div class="col">
+                            <div class="row text-muted" class="hide">Payment ID: {{d['paymentid']}}</div>
+                            <div class="row">{{d['pname']}}</div>
+                        </div>
+                        <div class="col">
+                            <input type="hidden" class="" name="product_id" value={{d[ 'pid']}}>{{d['quantity']}}</input>
+                        </div>
+                        <div class="col-2">&#8377 {{d['paymentAmount']}} </div>
+                        <div class="col-2">{{d['paymentDate']}} </div>
+
+                    </div>
+                </div>
+                {% endfor %}
+
+
+                <div class="back-to-shop"><a href="/">&leftarrow;<span class="text-muted aa">Back to shop</span></a></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="/app/static/public/cart/js/index.js"></script>
+{% endblock body %}

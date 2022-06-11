@@ -1,0 +1,68 @@
+{% extends "employee/templates/base.html" %} {% block title%} FUREN {% endblock title%} {% block head %} {% set checkEmptyCart = flase %}
+<link href="/static/public/cart/css/style.css" rel="stylesheet" /> {% endblock head%}{% block body %}
+
+
+<!-- Header-->
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">WELCOME SAQIB</h1>
+            <p class="lead fw-normal text-white-50 mb-0">Let's get to work ;)</p>
+        </div>
+    </div>
+</header>
+<!-- Section-->
+
+<div class="wrap d-md-flex" style="user-select: auto;">
+    <div class="card min-height">
+        <div class="row">
+            <div class="col-md-12 cart">
+                <div class="title">
+                    <div class="row">
+                        <div class="col">
+                            <h4><b>List of custumers</b></h4>
+                        </div>
+                    </div>
+                </div>
+                {% if users|length == 0 %}
+                <h1>No users</h1>
+                {% endif %}
+                <div class="row border-top">
+                    <div class="row main align-items-center">
+                        <div class="col-2">Name </div>
+                        <div class="col">
+                            <div class="row" class="hide">Details</div>
+                        </div>
+                        <div class="col-2">Address</div>
+                        <div class="col-2">City</div>
+                        <div class="col-2">State</div>
+                        <div class="col-2">Pin Code</div>
+                    </div>
+                </div>
+                <!-- uid | uname    | uemail           | unumber    | uaddress                   | ucity     | ustates   | upin  -->
+                {% for user in users %}
+                <div class="row border-top border-bottom">
+                    <div class="row main align-items-center">
+                        <div class="col-2">
+                            {% set url = '/user/'+ (user['uid'] | string) %}
+                            <input type="hidden" name='uid' values={{user[ 'uid']}}>
+                            <a href={{url}}>{{user['uname']}}</a>
+                        </div>
+                        <div class="col-2">
+                            <div class="row " class="hide">UID:{{user[ 'uid']}}</div>
+                            <div class="row">{{user['uemail']}}</div>
+                            <div class="row">{{user['uphone']}}</div>
+                        </div>
+                        <div class="col-2">{{user['uaddress']}} </div>
+                        <div class="col-2">{{user['ucity']}}</div>
+                        <div class="col-2">{{user['ustate']}}</div>
+                        <div class="col-2">{{user['upin']}}</div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/app/static/public/cart/js/index.js"></script>
+{% endblock body %}

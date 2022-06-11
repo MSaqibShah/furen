@@ -1,0 +1,74 @@
+// Product
+create table product(
+    pid int,
+    pname varchar(50),
+    pdesc varchar(500),
+    ptype varchar(20),
+    price int,
+    primary key(pid)
+    );
+
+
+// User
+create table user( 
+    uid int,
+    uname varchar(30),
+    uemail varchar(240),  
+    unumber varchar(15),
+    uaddress varchar(250),
+    ucity varchar(20),
+    ustates varchar(20),
+    upin int,
+    primary key(uid)
+    );
+
+// Employee
+create table employee( 
+    eid int auto_increment, 
+    ename varchar(30),   
+    enumber varchar(15), 
+    eemail varchar(240),
+    etype varchar(20),
+    esalary int,       
+    esup int,
+    primary key(eid),
+    foreign key(esup) references employee(eid) on delete set null
+    );
+
+
+// booking
+create table booking(   
+    bid int auto_increment,
+    bstatus varchar(10),
+    bdate datetime,      
+    uid int, 
+    pid int,
+    primary key(bid),
+    foreign key(uid) references user(uid) on delete cascade,
+    foreign key(pid) references product(pid) on delete set null
+    );
+
+// payment
+create table payment( 
+    paymentid int auto_increment,
+    paymentdesc varchar(100), 
+    paymentdate datetime,     
+    paymentamount int,            
+    paymentstatus varchar(20),
+    primary key(paymentid)
+    );
+
+
+// rent (rperiod -> months)
+create table rent(
+    rid int auto_increment,
+    rstart datetime,        
+    rperiod int,     
+    pid int,          
+    uid int,          
+    paymentid int,    
+    primary key(rid),
+    foreign key(pid) references product(pid) on delete set null,
+    foreign key(uid) references user(uid) on delete cascade,
+    foreign key(paymentid) references payment(paymentid) on delete set null
+    );
