@@ -42,7 +42,7 @@ def deleteRent(rid):
     print("------------------------------------")
 
 def getRent(rid):
-    t = f"SELECT * FROM RENT WHERE rid ='{rid}'"
+    t = f"SELECT * FROM rent WHERE rid ='{rid}'"
     conn = db.session.connection()
     r = conn.execute(t)
     r = r.first()
@@ -50,7 +50,7 @@ def getRent(rid):
     return r
 
 def getAllRent(uid):
-    t = f"SELECT * FROM RENT WHERE uid ='{uid}'"
+    t = f"SELECT * FROM rent WHERE uid ='{uid}'"
     conn = db.session.connection()
     result = conn.execute(t)
     r = []

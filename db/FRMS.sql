@@ -18,6 +18,8 @@
 --
 -- Table structure for table `booking`
 --
+CREATE DATABASE FRMS;
+use FRMS;
 
 DROP TABLE IF EXISTS `booking`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;

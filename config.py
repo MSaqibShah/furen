@@ -5,8 +5,8 @@ class Config(object):
 
     DB_NAME = "FRMS"
     DB_USERNAME = "root"
-    DB_PASSWORD = "password"
-    SQLALCHEMY_DATABASE_URI =f'mysql+pymysql://{DB_USERNAME}:{DB_PASSWORD}@localhost/{DB_NAME}'
+    DB_PASSWORD = "root"
+    SQLALCHEMY_DATABASE_URI =f'mysql+pymysql://{DB_USERNAME}:{DB_PASSWORD}@db/{DB_NAME}'
     # 'mysql+pymysql://DB_USERNAME:DB_PASSWORD@localhost/DB_NAME' 
     IMAGE_UPLOADS = "E:\python\FLASK\P1\app\static\public\img"
 
@@ -22,7 +22,7 @@ class DevelopmentConfig(Config):
 
     DB_NAME = "FRMS"
     DB_USERNAME = "root"
-    DB_PASSWORD = "password"
+    DB_PASSWORD = "root"
 
     IMAGE_UPLOADS = "E:\python\FLASK\P1\app\static\public\img"
 
@@ -33,7 +33,7 @@ class TestingConfig(Config):
 
     DB_NAME = "FRMS"
     DB_USERNAME = "root"
-    DB_PASSWORD = "password"
+    DB_PASSWORD = "root"
 
     IMAGE_UPLOADS = "E:\python\FLASK\P1\app\static\public\img"
 
